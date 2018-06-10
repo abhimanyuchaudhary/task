@@ -52,3 +52,7 @@ Basic idea is to make a desktop app for Google Task using Electron
   ```
   
   * [Refer to the Tasks API here](https://developers.google.com/tasks/v1/reference/tasklists/list)
+# TO DO
+  * Front-End
+    * page1
+    * page2
