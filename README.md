@@ -29,8 +29,7 @@ Basic idea is to make a desktop app for Google Task using Electron
         });
       }
   ```
-  
-    * Call to list tasks [The weird string is the code for the particular list]
+  * Call to list tasks [The weird string is the code for the particular list]
   ```javascript
       function listTasks(auth) {
   const service = google.tasks({version: 'v1', auth});
