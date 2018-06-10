@@ -54,5 +54,11 @@ Basic idea is to make a desktop app for Google Task using Electron
   * [Refer to the Tasks API here](https://developers.google.com/tasks/v1/reference/tasklists/list)
 # TO DO
   * Front-End
-    * page1
-    * page2
+    1. Main page with the actual list of tasks
+      * UI design
+      * React code
+    2. secondary page that will have all the lists of the user
+      * UI design
+      * React code
+    3. Maybe a page with completed tasks
+    4. Maybe a settings page
