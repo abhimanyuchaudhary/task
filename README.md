@@ -1,12 +1,13 @@
 # gTask
 So I figured out how to run electron with react,https://gist.github.com/matthewjberger/6f42452cb1a2253667942d333ff53404  
 Now we have to figure out how to do API calls from react, I read somewhere that Node APIs work with react but that didn't seem to work so https://www.fullstackreact.com/articles/using-create-react-app-with-a-server/  
+We can also use REST apis, but will have to figure out how to incorporate those.  
 Basic idea is to make a desktop app for Google Task using Electron
   * React will be used to build the front end
   * Electron will be used to package it into a desktop app
   * Node.js will be used for back-end for API calls
   * A top bar widget would be nice too I think
-## Sample Google Task API call from node
+## Sample Google Task API call from node (probably won't use now in favor of RESTful API)
   * Call to list all the list
   ```javascript
       /**
