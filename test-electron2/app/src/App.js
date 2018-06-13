@@ -4,7 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 import Text from './Components/text.js'
 
-
+var container;
 class App extends Component {
   constructor(props) {
 
@@ -15,7 +15,7 @@ class App extends Component {
   }
 
 componentDidMount() {
-  App = this;
+  container = this;
 }
 listTaskLists = () => {
     
@@ -28,9 +28,8 @@ listTaskLists = () => {
       if (taskLists && taskLists.length > 0) {
         for (var i = 0; i < taskLists.length; i++) {
           var taskList = taskLists[i];
-          l = taskList.title;
+          l = l + " " + taskList.title;
           console.log(l);
-          // console.log(list);
         }
       } else {
         l = "no Tasks"
@@ -39,8 +38,7 @@ listTaskLists = () => {
       return l;
     }).then( function (l) {
       console.log(l);
-      console.log(l);
-      this.setState({Result : l});
+      container.setState({Result : l});
     });
 
   }
