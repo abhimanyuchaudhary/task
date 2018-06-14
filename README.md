@@ -38,6 +38,7 @@ Basic idea is to make a desktop app for Google Task using Electron
   * ~~Electron with react~~ https://gist.github.com/matthewjberger/6f42452cb1a2253667942d333ff53404  
   * ~~How to call Api~~ (see listtasks.js)https://www.fullstackreact.com/articles/using-create-react-app-with-a-server/  
   * ~~Google Auth in react~~
+  * ~~using css in react~~ https://material-ui.com
   * Front-End
     1. Main page with the actual list of tasks
       * UI design
