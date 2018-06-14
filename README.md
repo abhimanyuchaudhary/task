@@ -32,7 +32,18 @@ Basic idea is to make a desktop app for Google Task using Electron
 
     }
   ```
-  
+# How to run
+After installing NPM and Yarn  
+Go to testelectron2/app
+```
+npm install;
+yarn add electron --dev
+yarn add electron-builder --dev
+yarn global add foreman # for process management
+yarn install
+yarn start
+```
+
   * [Refer to the Tasks API here](https://developers.google.com/tasks/v1/reference/tasklists/list)
 # TO DO
   * ~~Electron with react~~ https://gist.github.com/matthewjberger/6f42452cb1a2253667942d333ff53404  
