@@ -50,6 +50,7 @@ yarn start
   * ~~How to call Api~~ (see listtasks.js) 
   * ~~Google Auth in react~~
   * ~~using css in react~~ https://material-ui.com
+  * Fix login logout
   * Front-End
     1. Main page with the actual list of tasks
       * UI design
