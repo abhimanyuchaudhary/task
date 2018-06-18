@@ -20,7 +20,6 @@ class ListsPage extends React.Component {
   	container = this;
   }
   listTaskLists = () => {
-      
       window.gapi.client.tasks.tasklists.list({
           'maxResults': 10
       }).then(function(response) {
@@ -34,12 +33,12 @@ class ListsPage extends React.Component {
             console.log(l);
           }
         } else {
-          l = "no Tasks"
+          // l = "no Tasks"
           console.log(l)
         }
         return l;
       }).then( function (l) {
-        console.log(l);
+        // console.log(l);
         container.setState({Result : l});
       });
 
