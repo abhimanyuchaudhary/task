@@ -74,8 +74,9 @@ class LandingPage extends React.Component {
         }
       }
       else{
+        // this.loadClientWhenGapiReady(script)
         console.log('Client wasn\'t ready, trying again in 100ms');
-        setTimeout(() => {this.loadClientWhenGapiReady(script)}, 100);
+        setTimeout(() => {this.loadClientWhenGapiReady(script)}, 200);
       }
     }
     initGapi = () => {
@@ -129,8 +130,6 @@ class LandingPage extends React.Component {
 
 
   render () {
-      // if(this.state.gapiReady){
-
         return (
           <div id = "LandingPageMain" style = {{height: '414px'}}>
           <Grid container wrap="nowrap" spacing={40} alignContent="center" justify ="center" alignItems="center" direction="column">
@@ -143,7 +142,7 @@ class LandingPage extends React.Component {
                 </Typography>
             </Grid>
             <Grid item>
-                <Link to={{ pathname: "/TasksPage", state: { listId: 'MDk5NjEwMzY5OTE5NDUwNTk5NDk6NDg0MDU4NDM1NDA1ODk2NTow'} }}>
+                <Link to={{ pathname: "/TasksPage", state: { Id: this.state.sId} }}>
                    <Button variant="contained">TasksPage</Button>
                 </Link>
             </Grid>
@@ -158,10 +157,6 @@ class LandingPage extends React.Component {
           </Grid>
           </div>
           );
-      // }
-   
-
-
   }
 }
 

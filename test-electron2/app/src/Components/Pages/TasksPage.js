@@ -20,7 +20,7 @@ class TasksPage extends React.Component {
   }
   componentDidMount() {
   	container = this;
-    Id = this.props.location.state;
+    const {Id} = this.props.location.state;
     console.log(Id);
     this.state.listId = Id;
     // this.setState({listId : listId});
