@@ -9,20 +9,25 @@ import {
   Switch,
 } from 'react-router-dom';
 var container;
+var Id;
 class TasksPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      Result : ''
+      Result : '',
+      listId : '1'
     }
   }
   componentDidMount() {
   	container = this;
-    var listId = this.props.location.state;
-    console.log(listId);
-    this.setState({listId : listId});
+    Id = this.props.location.state;
+    console.log(Id);
+    this.state.listId = Id;
+    // this.setState({listId : listId});
+    console.log(this.state.listId);
   }
   listTasks = () => {
+    console.log(this.state.listId);
       window.gapi.client.tasks.tasks.list({
           'tasklist' : this.state.listId
       }).then(function(response) {
