@@ -1,11 +1,16 @@
 import React from 'react';
 import ReactGoogleAuth from 'react-google-auth';
 import LandingPage from './LandingPage';
-
+import {
+  BrowserRouter as Router,
+  Link,
+  Route,
+  Switch,
+} from 'react-router-dom';
 function Example(props) {
     console.log("gapi exists", window.gapi);
     return <div>
-        <LandingPage/>
+        <LandingPage isSignedOut = {false}/>
         <button className="Button Button-primary" onClick={props.onSignOutClick}>Sign out</button>
     </div>;
 }
@@ -23,6 +28,7 @@ function SignIn(props) {
         return <div className="Text Text-strong">Error!</div>;
     }
     return <div>
+        <LandingPage isSignedOut = {true}/>
         <button className="Button Button-primary" onClick={props.onSignInClick}>Sign in</button>
         {props.signingIn && <div>Signing in...</div>}
     </div>;

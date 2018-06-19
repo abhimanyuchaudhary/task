@@ -23,7 +23,7 @@ class LandingPage extends React.Component {
     this.state = {
       gapiReady : false,
       sId : '',
-      isSignedIn : false
+      sName : ''
     }
   }
 
@@ -37,7 +37,7 @@ class LandingPage extends React.Component {
       window.gapi.load('client', () => {
         window.gapi.client.setApiKey(API_KEY);
         window.gapi.client.load('tasks', 'v1', () => {
-          this.setState({ gapiReady: true });
+          
           console.log(window.gapi.client.tasks);
           window.gapi.client.tasks.tasklists.list({
               'maxResults': 10
@@ -48,7 +48,7 @@ class LandingPage extends React.Component {
               for (var i = 0; i < taskLists.length; i++) {
                 var taskList = taskLists[i];
                 if(taskList.title == "My Tasks"){
-                  container.setState({sId : taskList.id});
+                  container.setState({sId : taskList.id, sName : taskList.title});
                 }
                 console.log(taskList.title);
               }
@@ -56,6 +56,7 @@ class LandingPage extends React.Component {
               console.log("No Tasks")
             }
           });
+          this.setState({ gapiReady: true });
         });
       });
     };
@@ -114,17 +115,9 @@ class LandingPage extends React.Component {
               </Typography>
           </Grid>
           <Grid item>
-              <Link to={{ pathname: "/TasksPage", state: { Id: this.state.sId} }}>
-                 <Button variant="contained">TasksPage</Button>
+              <Link to={{ pathname: "/TasksPage", state: { Id: this.state.sId, Name: this.state.sName} }}>
+                 <Button variant="contained" disabled = {this.props.isSignedOut} > -> </Button>
               </Link>
-          </Grid>
-          <Grid item>
-              <Link to = "/ListsPage">
-                 <Button variant="contained">ListsPage</Button>
-              </Link>
-          </Grid>
-          <Grid item>
-                 <Button variant="contained" onClick={this.listTaskLists}>Test</Button>
           </Grid>
         </Grid>
         </div>
