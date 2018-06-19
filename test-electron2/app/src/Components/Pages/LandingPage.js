@@ -47,9 +47,8 @@ class LandingPage extends React.Component {
             if (taskLists && taskLists.length > 0) {
               for (var i = 0; i < taskLists.length; i++) {
                 var taskList = taskLists[i];
-                if(taskList.title == "My Tasks"){
                   container.setState({sId : taskList.id, sName : taskList.title});
-                }
+                  break;              
                 console.log(taskList.title);
               }
             } else {
