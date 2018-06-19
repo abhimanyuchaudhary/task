@@ -32,72 +32,90 @@ class LandingPage extends React.Component {
         window.gapi.client.setApiKey(API_KEY);
         window.gapi.client.load('tasks', 'v1', () => {
           this.setState({ gapiReady: true });
+          console.log(window.gapi.client.tasks);
+          window.gapi.client.tasks.tasklists.list({
+              'maxResults': 10
+          }).then(function(response) {
+            var l = '';
+            var taskLists = response.result.items;
+            if (taskLists && taskLists.length > 0) {
+              for (var i = 0; i < taskLists.length; i++) {
+                var taskList = taskLists[i];
+                if(taskList.title == "My Tasks"){
+                  container.setState({sId : taskList.id});
+                }
+                console.log(taskList.title);
+              }
+            } else {
+              console.log("No Tasks")
+            }
+          });
         });
       });
     };
 
     document.body.appendChild(script);
   }
-  loadClientWhenGapiReady = (script) => {
-      console.log('Trying To Load Client!');
-      console.log(script)
-      if(script.getAttribute('gapi_processed')){
-        console.log('Client is ready! Now you can access gapi. :)');
-        if(window.location.hostname==='localhost'){
-          window.gapi.client.load("https://www.googleapis.com/discovery/v1/apis/tasks/v1/rest")
-          .then((response) => {
-            console.log("Connected to metafields API locally.");
-            console.log(window.gapi.client.tasks);
-            window.gapi.client.tasks.tasklists.list({
-                'maxResults': 10
-            }).then(function(response) {
-              var l = '';
-              var taskLists = response.result.items;
-              if (taskLists && taskLists.length > 0) {
-                for (var i = 0; i < taskLists.length; i++) {
-                  var taskList = taskLists[i];
-                  if(taskList.title == "My Tasks"){
-                    container.setState({sId : taskList.id});
-                  }
-                  console.log(taskList.title);
-                }
-              } else {
-                console.log("No Tasks")
-              }
-            });
-            },
-            function (err) {
-              console.log("Error connecting to metafields API locally.");
+  // loadClientWhenGapiReady = (script) => {
+  //     console.log('Trying To Load Client!');
+  //     console.log(script)
+  //     if(script.getAttribute('gapi_processed')){
+  //       console.log('Client is ready! Now you can access gapi. :)');
+  //       if(window.location.hostname==='localhost'){
+  //         window.gapi.client.load("https://www.googleapis.com/discovery/v1/apis/tasks/v1/rest")
+  //         .then((response) => {
+  //           console.log("Connected to metafields API locally.");
+  //           console.log(window.gapi.client.tasks);
+  //           window.gapi.client.tasks.tasklists.list({
+  //               'maxResults': 10
+  //           }).then(function(response) {
+  //             var l = '';
+  //             var taskLists = response.result.items;
+  //             if (taskLists && taskLists.length > 0) {
+  //               for (var i = 0; i < taskLists.length; i++) {
+  //                 var taskList = taskLists[i];
+  //                 if(taskList.title == "My Tasks"){
+  //                   container.setState({sId : taskList.id});
+  //                 }
+  //                 console.log(taskList.title);
+  //               }
+  //             } else {
+  //               console.log("No Tasks")
+  //             }
+  //           });
+  //           },
+  //           function (err) {
+  //             console.log("Error connecting to metafields API locally.");
 
-            }
-          );
-        }
-      }
-      else{
-        // this.loadClientWhenGapiReady(script)
-        console.log('Client wasn\'t ready, trying again in 100ms');
-        setTimeout(() => {this.loadClientWhenGapiReady(script)}, 200);
-      }
-    }
-    initGapi = () => {
-        console.log('Initializing GAPI...');
-        console.log('Creating the google script tag...');
+  //           }
+  //         );
+  //       }
+  //     }
+  //     else{
+  //       // this.loadClientWhenGapiReady(script)
+  //       console.log('Client wasn\'t ready, trying again in 100ms');
+  //       setTimeout(() => {this.loadClientWhenGapiReady(script)}, 100);
+  //     }
+  //   }
+  //   initGapi = () => {
+  //       console.log('Initializing GAPI...');
+  //       console.log('Creating the google script tag...');
 
-        const script = document.createElement("script");
-        script.onload = () => {
-          console.log('Loaded script, now loading our api...')
-          // Gapi isn't available immediately so we have to wait until it is to use gapi.
-          this.loadClientWhenGapiReady(script);
-        };
-        script.src = "https://apis.google.com/js/client.js";
+  //       const script = document.createElement("script");
+  //       script.onload = () => {
+  //         console.log('Loaded script, now loading our api...')
+  //         // Gapi isn't available immediately so we have to wait until it is to use gapi.
+  //         this.loadClientWhenGapiReady(script);
+  //       };
+  //       script.src = "https://apis.google.com/js/client.js";
         
-        document.body.appendChild(script);
-      }
+  //       document.body.appendChild(script);
+  //     }
   componentDidMount() {
     container = this;
     console.log("there");
     if (!this.state.gapiReady) {
-      this.initGapi();
+      // this.initGapi();
       this.loadGapi();
 
       console.log("therehere");
@@ -130,33 +148,41 @@ class LandingPage extends React.Component {
 
 
   render () {
-        return (
-          <div id = "LandingPageMain" style = {{height: '414px'}}>
-          <Grid container wrap="nowrap" spacing={40} alignContent="center" justify ="center" alignItems="center" direction="column">
-            <Grid item>
-                       <img style={{width: '80px', height: '80px'}} src={Icon}/>
-            </Grid>
-            <Grid item>
-                <Typography variant="display1" align="center" component="h3">
-                  TASKS
-                </Typography>
-            </Grid>
-            <Grid item>
-                <Link to={{ pathname: "/TasksPage", state: { Id: this.state.sId} }}>
-                   <Button variant="contained">TasksPage</Button>
-                </Link>
-            </Grid>
-            <Grid item>
-                <Link to = "/ListsPage">
-                   <Button variant="contained">ListsPage</Button>
-                </Link>
-            </Grid>
-            <Grid item>
-                   <Button variant="contained" onClick={this.listTaskLists}>Test</Button>
-            </Grid>
+    if(this.state.gapiReady){
+      return (
+        <div id = "LandingPageMain" style = {{height: '414px'}}>
+        <Grid container wrap="nowrap" spacing={40} alignContent="center" justify ="center" alignItems="center" direction="column">
+          <Grid item>
+                     <img style={{width: '80px', height: '80px'}} src={Icon}/>
           </Grid>
-          </div>
-          );
+          <Grid item>
+              <Typography variant="display1" align="center" component="h3">
+                TASKS
+              </Typography>
+          </Grid>
+          <Grid item>
+              <Link to={{ pathname: "/TasksPage", state: { Id: this.state.sId} }}>
+                 <Button variant="contained">TasksPage</Button>
+              </Link>
+          </Grid>
+          <Grid item>
+              <Link to = "/ListsPage">
+                 <Button variant="contained">ListsPage</Button>
+              </Link>
+          </Grid>
+          <Grid item>
+                 <Button variant="contained" onClick={this.listTaskLists}>Test</Button>
+          </Grid>
+        </Grid>
+        </div>
+        );
+    }
+    else {
+      return (
+      <h1> waiting </h1>
+      );
+    }
+
   }
 }
 
