@@ -29,7 +29,6 @@ class LandingPage extends React.Component {
 
 
   loadGapi = () => {
-    console.log("here");
     const script = document.createElement("script");
     script.src = "https://apis.google.com/js/client.js";
 
@@ -65,12 +64,9 @@ class LandingPage extends React.Component {
 
   componentDidMount() {
     container = this;
-    console.log("there");
     if (!this.state.gapiReady) {
       // this.initGapi();
       this.loadGapi();
-
-      console.log("therehere");
     } else {
       console.log('gapi loaded');
     }
@@ -87,6 +83,7 @@ class LandingPage extends React.Component {
         for (var i = 0; i < taskLists.length; i++) {
           var taskList = taskLists[i];
           console.log(taskList.title);
+          console.log(taskList.id);
         }
       } else {
         console.log("TNo Tasks")
@@ -94,7 +91,6 @@ class LandingPage extends React.Component {
     });
 
   }
-
 
 
 
