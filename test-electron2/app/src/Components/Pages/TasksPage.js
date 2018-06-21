@@ -8,6 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
+import MyList from './Items/MyList.js';
 import {
   BrowserRouter as Router,
   Link,
@@ -30,6 +31,7 @@ var listComponents;
 var tasks;
 var tasksComponents;
 var fullTasks;
+var test = [];
 class TasksPage extends React.Component {
   constructor(props) {
     super(props);
@@ -37,7 +39,8 @@ class TasksPage extends React.Component {
       Result : '',
       listId : '',
       listName: '',
-      listsList : []
+      listsList : [],
+      allTasks: []
     }
   }
   componentDidMount() {
@@ -92,12 +95,14 @@ class TasksPage extends React.Component {
           'tasklist' : this.props.location.state.Id
       }).then(function(response) {
         var tasks = response.result.items;
-        tasksComponents = tasks.map((tasks) =>
+        container.setState({allTasks : response.result.items});
+        test = response.result.items;
+        // console.log(container.state.allTasks);
+        tasksComponents = tasks.map((task) =>
           <div>
-            <ListItem button>
-              <ListItemText primary={tasks.title} />
+            <ListItem button={true} divider={true} id={task.id}>
+              <ListItemText primary={task.title} />
             </ListItem>
-            <Divider />
           </div>
           
         );
@@ -145,7 +150,7 @@ class TasksPage extends React.Component {
       return (
         <div>
            <Text title = {this.props.location.state.Name}/>
-           {tasksComponents}
+           {fullTasks}
            <Button onClick={this.toggleDrawer('bottom', true)}>Open Bottom</Button>
         <Drawer
           anchor="bottom"
