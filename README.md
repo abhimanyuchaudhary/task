@@ -54,6 +54,8 @@ yarn start
   * ~~The mytasks page doesn't always load properly because of api client~~
   * Makeit so that signout takes you to landing page and all buttons are not pressable till logged in, for this bring the buttons to react
   * So if someone refreshes he is logged out, we don't want this but not a priority rn.
+  * Making loading animation
+  * make a task deletable, or do able rather
   * ~~maybe change how api si called, do the .fetch thing~~
   * Front-End
     1. Main page with the actual list of tasks
