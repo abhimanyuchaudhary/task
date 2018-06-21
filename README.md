@@ -57,12 +57,4 @@ yarn start
   * Making loading animation
   * make a task deletable, or do able rather
   * ~~maybe change how api si called, do the .fetch thing~~
-  * Front-End
-    1. Main page with the actual list of tasks
-      * UI design
-      * React code
-    2. secondary page that will have all the lists of the user
-      * UI design
-      * React code
-    3. Maybe a page with completed tasks
-    4. Maybe a settings page
+
