@@ -18,37 +18,22 @@ import {
 } from 'react-router-dom';
 
 var taskItems;
-var fullList;
+var container;
+function handleTaskClick(id){
+ console.log(id);
+};
 class MyList extends React.Component {
   constructor(props) {
     super(props);
 
   }
-
-
 componentDidMount() {
-  this.makePartialList(function(){
-    this.makeFullList();
-  });
-
-}
-
-makePartialList = (callback) => {
-  taskItems = this.props.tasks.tasks.map((tasks) =>
+  container = this;
+  taskItems = this.props.tasks.map((task) =>
     <div>
-      <ListItem button>
-        <ListItemText primary={tasks.title} />
+      <ListItem button={true} divider={true} onClick={handleTaskClick.bind(this,task.id)}>
+        <ListItemText primary={task.title} />
       </ListItem>
-    </div>
-  );
-  callback();
-}
-makeFullList = () => {
-  fullList = (
-    <div>
-      <List>
-        {taskItems}
-      </List>
     </div>
   );
 
@@ -58,9 +43,11 @@ makeFullList = () => {
 
 
   render () {
-
+      
       return (
-          {fullList}
+        <List>
+          {taskItems}
+        </List>
         );
    
   }

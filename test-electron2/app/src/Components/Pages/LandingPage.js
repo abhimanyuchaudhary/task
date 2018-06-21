@@ -7,6 +7,10 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import ReactGoogleAuth from 'react-google-auth';
 import Example from './Example';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItem from '@material-ui/core/ListItem';
+import MyList from './Items/MyList.js';
 import {
   BrowserRouter as Router,
   Link,
@@ -16,7 +20,6 @@ import {
 var container;
 var startId;
 var API_KEY = 'AIzaSyAeh3LWtwcnPkkER4c2N0qN1aqHnF3Q92w';
-
 class LandingPage extends React.Component {
   constructor(props) {
     super(props);
@@ -26,8 +29,6 @@ class LandingPage extends React.Component {
       sName : ''
     }
   }
-
-
   loadGapi = () => {
     const script = document.createElement("script");
     script.src = "https://apis.google.com/js/client.js";
@@ -92,11 +93,7 @@ class LandingPage extends React.Component {
 
   }
 
-
-
-
   render () {
-
     if(this.state.gapiReady){
       return (
         <div id = "LandingPageMain" style = {{height: '414px'}}>
