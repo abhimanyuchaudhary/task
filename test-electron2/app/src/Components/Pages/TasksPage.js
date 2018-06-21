@@ -27,6 +27,9 @@ const styles = {
 };
 var fullList;
 var listComponents;
+var tasks;
+var tasksComponents;
+var fullTasks;
 class TasksPage extends React.Component {
   constructor(props) {
     super(props);
@@ -88,24 +91,49 @@ class TasksPage extends React.Component {
       window.gapi.client.tasks.tasks.list({
           'tasklist' : this.props.location.state.Id
       }).then(function(response) {
-        var l = '';
         var tasks = response.result.items;
-        if (tasks && tasks.length > 0) {
-          for (var i = 0; i < tasks.length; i++) {
-            var task = tasks[i];
-            l = l + " " + task.title;
-          }
-        } else {
-          l = "no Tasks"
-        }
-        return l;
+        tasksComponents = tasks.map((tasks) =>
+          <ListItem button>
+            <ListItemText primary={tasks.title} />
+            <Divider />
+          </ListItem>
+          
+        );
+        fullTasks = (
+          <div>
+          <List>
+          {tasksComponents}
+          </List>
+          </div>
+        );
       }).then( function (l) {
-        container.setState({Result : l});
         callback();
         container.setState({ gapiReady: true });
       });
 
     }
+  // listTasks = (callback) => {
+  //     window.gapi.client.tasks.tasks.list({
+  //         'tasklist' : this.props.location.state.Id
+  //     }).then(function(response) {
+  //       var l = '';
+  //       var tasks = response.result.items;
+  //       if (tasks && tasks.length > 0) {
+  //         for (var i = 0; i < tasks.length; i++) {
+  //           var task = tasks[i];
+  //           l = l + " " + task.title;
+  //         }
+  //       } else {
+  //         l = "no Tasks"
+  //       }
+  //       return l;
+  //     }).then( function (l) {
+  //       container.setState({Result : l});
+  //       callback();
+  //       container.setState({ gapiReady: true });
+  //     });
+
+  //   }
   listTaskLists = () => {
     console.log(this.state.listId);
         window.gapi.client.tasks.tasklists.list({
@@ -137,7 +165,8 @@ class TasksPage extends React.Component {
       return (
         <div>
            <Text title = {this.props.location.state.Name}/>
-           <Text title = {this.state.Result}/>
+           {tasksComponents}
+           {/*<Text title = {this.state.Result}/>*/}
            <Button onClick={this.toggleDrawer('bottom', true)}>Open Bottom</Button>
         <Drawer
           anchor="bottom"
