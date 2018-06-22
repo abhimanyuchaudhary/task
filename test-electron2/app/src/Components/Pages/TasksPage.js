@@ -51,6 +51,7 @@ class TasksPage extends React.Component {
     const {Id, Name} = this.props.location.state;
     this.setState({listId: Id, listName: Name});
     console.log(this.props.location.state.Id);
+    console.log(this.state.listId);
     this.loadGapi(function(){
       container.listTasks(function(){
         container.listTaskLists();
@@ -62,6 +63,8 @@ class TasksPage extends React.Component {
     container.setState({ gapiReady: false });
     const {Id, Name} = this.props.location.state;
     container.setState({listId: Id, listName: Name});
+    console.log(this.props.location.state.Id);
+    console.log(this.state.listId);
     this.loadGapi(function(){
       container.listTasks(function(){
         container.listTaskLists();

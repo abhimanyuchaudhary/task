@@ -38,6 +38,6 @@ export default ReactGoogleAuth({
     clientId: "510513669401-q127av927vrbs59oib2t0jd7jrcrh3ll.apps.googleusercontent.com",
     discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/tasks/v1/rest"],
     loader: Loader,
-    scope: "https://www.googleapis.com/auth/tasks.readonly",
+    scope: "https://www.googleapis.com/auth/tasks",
     signIn: SignIn
 })(Example);
