@@ -32,9 +32,8 @@ var tasks;
 var tasksComponents;
 var fullTasks;
 var test = [];
-function handleTaskClick(id){
- console.log(id);
-};
+var nextProps;
+var deleted = [];
 class TasksPage extends React.Component {
   constructor(props) {
     super(props);
@@ -48,23 +47,24 @@ class TasksPage extends React.Component {
   }
   componentDidMount() {
     container = this;
-    const {Id, Name} = this.props.location.state;
-    this.setState({listId: Id, listName: Name});
-    console.log(this.props.location.state.Id);
-    console.log(this.state.listId);
+    const {Id, Name} = this.props.match.params;
     this.loadGapi(function(){
       container.listTasks(function(){
         container.listTaskLists();
       });
     });
   }
-  componentWillReceiveProps() {
+  componentWillReceiveProps(newProps) {
+    // console.log(nextProps);
+    // console.log(nextProps.match.params.Id);
     container = this;
     container.setState({ gapiReady: false });
-    const {Id, Name} = this.props.location.state;
-    container.setState({listId: Id, listName: Name});
-    console.log(this.props.location.state.Id);
-    console.log(this.state.listId);
+    const {Id, Name} = newProps.match.params;
+    
+    this.props = newProps;
+    console.log(this.props.match.params, newProps.match.params);
+    // console.log(nextProps.Id);
+    // console.log(this.state.listId);
     this.loadGapi(function(){
       container.listTasks(function(){
         container.listTaskLists();
@@ -76,6 +76,7 @@ class TasksPage extends React.Component {
   }
 
   loadGapi = (callback) => {
+    // const {Id, Name} = this.props.match.params;
     const script = document.createElement("script");
     script.src = "https://apis.google.com/js/client.js";
 
@@ -102,7 +103,7 @@ class TasksPage extends React.Component {
   listTasks = (callback) => {
 
       window.gapi.client.tasks.tasks.list({
-          'tasklist' : this.props.location.state.Id
+          'tasklist' : this.props.match.params.Id
       }).then(function(response) {
         tasks = response.result.items;
         container.setState({allTasks : response.result.items});
@@ -114,18 +115,21 @@ class TasksPage extends React.Component {
     };
 
   listTaskLists = () => {
-    console.log(this.state.listId);
+    // console.log(this.state.listId);
         window.gapi.client.tasks.tasklists.list({
             'maxResults': 100
         }).then(function(response) {
           var taskLists = response.result.items;
           container.setState({listsList : taskLists});
           listComponents = taskLists.map((list) =>
-              <Link to={{ pathname: "/TasksPage", state: { Id: list.id, Name: list.title} }}>
+              <Link to={"/TasksPage/"+list.id+"/"+list.title} params = {{ Id: list.id, Name: list.title}}>
                 <ListItem button>
                   <ListItemText primary={list.title} />
                 </ListItem>
               </Link>
+          );
+          taskLists.map((list) =>
+              console.log(list.id)
           );
           fullList = (
             <div>
@@ -144,8 +148,8 @@ class TasksPage extends React.Component {
     if(this.state.gapiReady){
       return (
         <div>
-           <Text title = {this.props.location.state.Name}/>
-           <MyList tasks={tasks} />
+           <Text title = {this.props.match.params.Name}/>
+           <MyList tasks={tasks} Id={this.props.match.params.Id}/>
            <Button onClick={this.toggleDrawer('bottom', true)}>Open Bottom</Button>
         <Drawer
           anchor="bottom"
