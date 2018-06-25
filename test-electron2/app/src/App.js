@@ -16,7 +16,7 @@ class App extends Component {
             <Route exact path="/" component={SignIn}/>
             <Route path="/LandingPage" component={LandingPage}/>
             <Route path="/ListsPage" component={ListsPage}/>        
-            <Route path="/TasksPage" component = {TasksPage}/>
+            <Route path="/TasksPage/:Id/:Name" component = {TasksPage}/>
         </div>
       </Router>
     );

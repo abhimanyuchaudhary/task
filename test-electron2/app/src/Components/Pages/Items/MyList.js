@@ -19,25 +19,55 @@ import {
 
 var taskItems;
 var container;
-function handleTaskClick(id){
- console.log(id);
-};
+var deleted = [];
+
+
 class MyList extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      myTasks : this.props.tasks
+    }
 
   }
 componentDidMount() {
   container = this;
-  taskItems = this.props.tasks.map((task) =>
+  console.log(this.props.Id);
+  console.log(this.props);
+  taskItems = this.state.myTasks.map((task) =>
     <div>
-      <ListItem button={true} divider={true} onClick={handleTaskClick.bind(this,task.id)}>
+      <ListItem button={true} divider={true} onClick={this.handleTaskClick.bind(this, task.id)}>
         <ListItemText primary={task.title} />
       </ListItem>
     </div>
   );
-
 }
+handleTaskClick = (id) => {
+ console.log(id);
+ deleted.push(id);
+ console.log(window.gapi.client);
+ window.gapi.client.tasks.tasks.delete({
+    'tasklist' : this.props.Id,
+    'task' : id
+});
+ // this.listTasks();
+
+};
+listTasks = () => {
+
+    window.gapi.client.tasks.tasks.list({
+        'tasklist' : this.props.Id
+    }).then(function(response) {
+      taskItems = container.state.myTasks.map((task) =>
+        <div>
+          <ListItem button={true} divider={true} onClick={this.handleTaskClick.bind(this, task.id)}>
+            <ListItemText primary={task.title} />
+          </ListItem>
+        </div>
+      );
+    });
+
+  };
 
 
 

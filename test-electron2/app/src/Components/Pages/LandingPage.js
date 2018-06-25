@@ -38,7 +38,7 @@ class LandingPage extends React.Component {
         window.gapi.client.setApiKey(API_KEY);
         window.gapi.client.load('tasks', 'v1', () => {
           
-          console.log(window.gapi.client.tasks);
+          // console.log(window.gapi.client.tasks);
           window.gapi.client.tasks.tasklists.list({
               'maxResults': 10
           }).then(function(response) {
@@ -74,7 +74,7 @@ class LandingPage extends React.Component {
   }
 
   listTaskLists = () => {
-    console.log(window.gapi.client.tasks);
+    // console.log(window.gapi.client.tasks);
     window.gapi.client.tasks.tasklists.list({
         'maxResults': 10
     }).then(function(response) {
@@ -106,8 +106,13 @@ class LandingPage extends React.Component {
                 TASKS
               </Typography>
           </Grid>
-          <Grid item>
+{/*          <Grid item>
               <Link to={{ pathname: "/TasksPage", state: { Id: this.state.sId, Name: this.state.sName} }}>
+                 <Button variant="contained" disabled = {this.props.isSignedOut} > -> </Button>
+              </Link>
+          </Grid>*/}
+          <Grid item> 
+              <Link to={"/TasksPage/"+this.state.sId+"/"+this.state.sName} params = {{ Id: this.state.sId, Name: this.state.sName}}>
                  <Button variant="contained" disabled = {this.props.isSignedOut} > -> </Button>
               </Link>
           </Grid>
