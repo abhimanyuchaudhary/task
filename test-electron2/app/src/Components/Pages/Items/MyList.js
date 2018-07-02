@@ -20,14 +20,15 @@ import {
 var taskItems;
 var container;
 var deleted = [];
-
+var tempTasks = [];
 
 class MyList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       myTasks : this.props.tasks,
-      taskItems : []
+      taskItems : <div> </div> ,
+      deleted : []
     }
 
   }
@@ -35,6 +36,12 @@ componentDidMount() {
   container = this;
   console.log(this.props.Id);
   console.log(this.props);
+  this.makeListItem();
+  
+}
+
+makeListItem = () => {
+  console.log(this.props.tasks);
   var newItems = this.state.myTasks.map((task) =>
     <div>
       <ListItem button={true} divider={true} onClick={this.handleTaskClick.bind(this, task.id)}>
@@ -43,8 +50,8 @@ componentDidMount() {
     </div>
   );
   this.setState({taskItems : newItems});
-  
-}
+};
+
 handleTaskClick = (id) => {
     console.log(id);
     deleted.push(id);
@@ -52,23 +59,19 @@ handleTaskClick = (id) => {
         'tasklist' : this.props.Id,
         'task' : id
     }).then(function(response) {
-        console.log(response); 
-    }).then(function() {
-        window.gapi.client.tasks.tasks.list({
-            'tasklist' : container.props.Id
-        }).then(function(response) {
-            var newTasks = response.result.items;
-            console.log(newTasks);
-            var newItems = newTasks.map((task) =>
-                <div>
-                <ListItem button={true} divider={true} onClick={this.handleTaskClick.bind(this, task.id)}>
-                <ListItemText primary={task.title} />
-                </ListItem>
-                </div>
-            );
-            container.setState({taskItems : newItems});
-        })
-        console.log(this.state.taskItems);
+        deleted.push(id);
+        
+        var counter = 0;
+        for(var i = 0; i < container.state.myTasks.length; i++){
+          if(container.state.myTasks[i].id != id){
+            tempTasks[counter] = container.state.myTasks[i];
+            counter++;
+          }
+        }
+    }).then(function(){
+      container.setState({myTasks : tempTasks})
+    }).then(function(){
+      container.makeListItem();
     });
 
 

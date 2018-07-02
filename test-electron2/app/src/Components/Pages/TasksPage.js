@@ -28,7 +28,7 @@ const styles = {
 };
 var fullList;
 var listComponents;
-var tasks;
+var tasks = [];
 var tasksComponents;
 var fullTasks;
 var test = [];
@@ -106,6 +106,9 @@ class TasksPage extends React.Component {
           'tasklist' : this.props.match.params.Id
       }).then(function(response) {
         tasks = response.result.items;
+        if(response.result.items == null){
+          tasks = [];
+        }
         container.setState({allTasks : response.result.items});
       }).then( function (l) {
         callback();
@@ -128,9 +131,9 @@ class TasksPage extends React.Component {
                 </ListItem>
               </Link>
           );
-          taskLists.map((list) =>
-              console.log(list.id)
-          );
+          // taskLists.map((list) =>
+          //     console.log(list.id)
+          // );
           fullList = (
             <div>
             <List>
