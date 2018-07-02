@@ -50,11 +50,12 @@ yarn start
   * ~~How to call Api~~ (see listtasks.js) 
   * ~~Google Auth in react~~
   * ~~using css in react~~ https://material-ui.com
-  * Fix login logout - like it's in the index.html file rn we have to put it in the react code. I haven't tried but this might prove difficult because google auth is weird [SO It's almost fixed, button is in react but will have to design front end so that placement can be figured out]
+  * ~~Fix login logout - like it's in the index.html file rn we have to put it in the react code. I haven't tried but this might prove difficult because google auth is weird [SO It's almost fixed, button is in react but will have to design front end so that placement can be figured out]~~
   * ~~The mytasks page doesn't always load properly because of api client~~
   * Makeit so that signout takes you to landing page and all buttons are not pressable till logged in, for this bring the buttons to react
   * So if someone refreshes he is logged out, we don't want this but not a priority rn.
   * Making loading animation
-  * make a task deletable, or do able rather
+  * ~~make a task deletable, or do able rather~~
+  * Tasks can be deleted but if a list is empties while deleting things stop working
   * ~~maybe change how api si called, do the .fetch thing~~
 
