@@ -3,35 +3,7 @@ Basic idea is to make a desktop app for Google Task using Electron
   * React will be used to build the front end, and call APIs
   * Electron will be used to package it into a desktop app
   * A top bar widget would be nice too I think
-## Sample Google Task API call from node - see listtasks.js for exact usage
-  * Call to list all the list
-  ```javascript
-        listTaskLists = () => {
-      
-      window.gapi.client.tasks.tasklists.list({
-          'maxResults': 10
-      }).then(function(response) {
-        // appendPre('Task Lists:');
-        var l = '';
-        var taskLists = response.result.items;
-        if (taskLists && taskLists.length > 0) {
-          for (var i = 0; i < taskLists.length; i++) {
-            var taskList = taskLists[i];
-            l = l + " " + taskList.title;
-            console.log(l);
-          }
-        } else {
-          l = "no Tasks"
-          console.log(l)
-        }
-        return l;
-      }).then( function (l) {
-        console.log(l);
-        container.setState({Result : l});
-      });
 
-    }
-  ```
 # How to run
 After installing NPM and Yarn  
 Go to testelectron2/app
@@ -55,7 +27,8 @@ yarn start
   * Makeit so that signout takes you to landing page and all buttons are not pressable till logged in, for this bring the buttons to react
   * So if someone refreshes he is logged out, we don't want this but not a priority rn.
   * Making loading animation
+  * Make it look good
   * ~~make a task deletable, or do able rather~~
-  * Tasks can be deleted but if a list is empties while deleting things stop working
+  * ~~Tasks can be deleted but if a list is empties while deleting things stop working~~
   * ~~maybe change how api si called, do the .fetch thing~~
 
