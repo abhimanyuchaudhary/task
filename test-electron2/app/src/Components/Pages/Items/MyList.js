@@ -37,10 +37,16 @@ componentDidMount() {
   this.setState({myTasks : this.props.tasks});
   this.makeListItem();
 }
+componentWillReceiveProps(newProps) {
+  container = this;
+  container.setState({ gapiReady: false });
+  this.setState({myTasks : newProps.tasks});
+  this.makeListItem();
+}
 
 
 makeListItem = () => {
-  console.log(this.props.tasks);
+  // console.log(this.props.tasks);
   var newItems = this.state.myTasks.map((task) =>
     <div>
       <ListItem button={true} divider={true} onClick={this.handleTaskClick.bind(this, task.id)}>
@@ -52,7 +58,7 @@ makeListItem = () => {
 };
 
 handleTaskClick = (id) => {
-    console.log(id);
+    // console.log(id);
     deleted.push(id);
     window.gapi.client.tasks.tasks.delete({
         'tasklist' : this.props.Id,

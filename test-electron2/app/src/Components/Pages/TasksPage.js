@@ -145,9 +145,9 @@ class TasksPage extends React.Component {
           'tasklist' : this.props.match.params.Id,
           'title' : this.state.input
       }).then(function(response) {
-        console.log(response);
+        // console.log(response);
         container.listTasks(function(){
-          console.log(tasks);
+          // console.log(tasks);
         });
       });
 
@@ -160,7 +160,7 @@ class TasksPage extends React.Component {
     this.setState({ open: false });
   };
   handleEnter = () => {
-    console.log(this.state.input);
+    // console.log(this.state.input);
     this.insertTasks();
     this.setState({open: false});
   };
