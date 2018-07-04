@@ -34,11 +34,10 @@ class MyList extends React.Component {
   }
 componentDidMount() {
   container = this;
-  console.log(this.props.Id);
-  console.log(this.props);
+  this.setState({myTasks : this.props.tasks});
   this.makeListItem();
-  
 }
+
 
 makeListItem = () => {
   console.log(this.props.tasks);

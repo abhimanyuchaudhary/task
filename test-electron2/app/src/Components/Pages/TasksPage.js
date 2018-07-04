@@ -9,6 +9,12 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import MyList from './Items/MyList.js';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import {
   BrowserRouter as Router,
   Link,
@@ -42,7 +48,8 @@ class TasksPage extends React.Component {
       listId : '',
       listName: '',
       listsList : [],
-      allTasks: []
+      allTasks: [],
+      input : ''
     }
   }
   componentDidMount() {
@@ -55,16 +62,11 @@ class TasksPage extends React.Component {
     });
   }
   componentWillReceiveProps(newProps) {
-    // console.log(nextProps);
-    // console.log(nextProps.match.params.Id);
     container = this;
     container.setState({ gapiReady: false });
     const {Id, Name} = newProps.match.params;
-    
     this.props = newProps;
     console.log(this.props.match.params, newProps.match.params);
-    // console.log(nextProps.Id);
-    // console.log(this.state.listId);
     this.loadGapi(function(){
       container.listTasks(function(){
         container.listTaskLists();
@@ -91,9 +93,6 @@ class TasksPage extends React.Component {
 
     document.body.appendChild(script);
   };
-  handleTaskClick(){
-   console.log("id");
-  };
   toggleDrawer = (side, open) => () => {
     this.setState({
       [side]: open,
@@ -101,7 +100,6 @@ class TasksPage extends React.Component {
   };
 
   listTasks = (callback) => {
-
       window.gapi.client.tasks.tasks.list({
           'tasklist' : this.props.match.params.Id
       }).then(function(response) {
@@ -131,9 +129,6 @@ class TasksPage extends React.Component {
                 </ListItem>
               </Link>
           );
-          // taskLists.map((list) =>
-          //     console.log(list.id)
-          // );
           fullList = (
             <div>
             <List>
@@ -144,8 +139,34 @@ class TasksPage extends React.Component {
         });
 
     };
+  insertTasks = (callback) => {
 
+      window.gapi.client.tasks.tasks.insert({
+          'tasklist' : this.props.match.params.Id,
+          'title' : this.state.input
+      }).then(function(response) {
+        console.log(response);
+        container.listTasks(function(){
+          console.log(tasks);
+        });
+      });
 
+    };
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+  handleEnter = () => {
+    console.log(this.state.input);
+    this.insertTasks();
+    this.setState({open: false});
+  };
+  onChange = (event) => {
+    this.setState({input: event.target.value});
+  }
 
   render () {
     if(this.state.gapiReady){
@@ -168,6 +189,35 @@ class TasksPage extends React.Component {
             {fullList}
           </div>
         </Drawer>
+        <div>
+          <Button onClick={this.handleClickOpen}>Add</Button>
+          <Dialog
+            open={this.state.open}
+            onClose={this.handleClose}
+            aria-labelledby="form-dialog-title"
+          >
+            <DialogTitle id="form-dialog-title">Add Task</DialogTitle>
+            <DialogContent>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Title"
+                type="email"
+                onChange={this.onChange.bind(this)}
+                fullWidth
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleClose} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={this.handleEnter} color="primary">
+                Add
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
        </div>
         );
     }
