@@ -1,4 +1,4 @@
-# gTask
+# Task
 Basic idea is to make a desktop app for Google Task using Electron
   * React will be used to build the front end, and call APIs
   * Electron will be used to package it into a desktop app
