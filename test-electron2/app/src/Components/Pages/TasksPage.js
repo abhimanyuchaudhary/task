@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Text from '../text.js'
 import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
+import PropTypes from "prop-types";
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -15,6 +16,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import IconButton from '@material-ui/core/IconButton';
 import {
   BrowserRouter as Router,
   Link,
@@ -24,6 +27,16 @@ import {
 var container;
 var API_KEY = 'AIzaSyAeh3LWtwcnPkkER4c2N0qN1aqHnF3Q92w';
 var Id;
+const bottomButtonDiv= {
+   position: 'fixed',
+   bottom: 0,
+   width : '100%',
+   backgroundColor : 'grey',
+   margin : '0'
+}
+const addButtonDiv= {
+  
+}
 const styles = {
   list: {
     width: 250,
@@ -40,6 +53,7 @@ var fullTasks;
 var test = [];
 var nextProps;
 var deleted = [];
+
 class TasksPage extends React.Component {
   constructor(props) {
     super(props);
@@ -174,7 +188,7 @@ class TasksPage extends React.Component {
         <div>
            <Text title = {this.props.match.params.Name}/>
            <MyList tasks={tasks} Id={this.props.match.params.Id}/>
-           <Button onClick={this.toggleDrawer('bottom', true)}>Open Bottom</Button>
+
         <Drawer
           anchor="bottom"
           open={this.state.bottom}
@@ -189,8 +203,16 @@ class TasksPage extends React.Component {
             {fullList}
           </div>
         </Drawer>
+        <div style = {bottomButtonDiv}>
+        <IconButton
+          onClick={this.toggleDrawer('bottom', true)}
+        >
+          <MoreVertIcon />
+        </IconButton>
+          {/*<Button onClick={this.toggleDrawer('bottom', true)}>Open Bottom</Button>*/}
+          <Button variant="raised" color = "primary" style = {addButtonDiv} onClick={this.handleClickOpen}>Add a new Task </Button>
+        </div>
         <div>
-          <Button onClick={this.handleClickOpen}>Add</Button>
           <Dialog
             open={this.state.open}
             onClose={this.handleClose}
@@ -231,4 +253,5 @@ class TasksPage extends React.Component {
   }
 }
 export default TasksPage;
+
 
