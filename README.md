@@ -27,7 +27,7 @@ yarn start
   * Makeit so that signout takes you to landing page and all buttons are not pressable till logged in, for this bring the buttons to react
   * So if someone refreshes he is logged out, we don't want this but not a priority rn.
   * Making loading animation
-  * Make it look good
+  * Make it look gooder
   * ~~make a task deletable, or do able rather~~
   * ~~Tasks can be deleted but if a list is empties while deleting things stop working~~
   * ~~maybe change how api si called, do the .fetch thing~~
