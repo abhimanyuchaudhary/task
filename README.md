@@ -32,3 +32,4 @@ yarn start
   * ~~Tasks can be deleted but if a list is empties while deleting things stop working~~
   * ~~maybe change how api si called, do the .fetch thing~~
 
+dsz
