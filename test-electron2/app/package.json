@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "css-loader": "^0.28.11",
-    "electron-builder": "^20.15.1",
+    "electron-builder": "^20.44.4",
     "extract-loader": "^2.0.1",
     "file-loader": "^1.1.11",
     "node-sass": "^4.9.0",
